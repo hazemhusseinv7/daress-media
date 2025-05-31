@@ -2,8 +2,6 @@
 
 import React from "react";
 
-import Image from "next/image";
-
 import { motion } from "motion/react";
 
 import { LampContainer } from "@/components/ui/lamp";
