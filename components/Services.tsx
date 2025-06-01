@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 const Services = () => {
   return (
-    <section className="-mb-80 pb-80 bg-slate-950">
+    <section id="services" className="-mb-80 px-4 pb-80 bg-slate-950">
       <LampContainer>
         <motion.h2
           initial={{ opacity: 0.5, y: 100 }}

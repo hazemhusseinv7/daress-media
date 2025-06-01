@@ -4,6 +4,16 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-main-color-1: var(--main-color-1);
+  --color-main-color-2: var(--main-color-2);
+  --color-main-color-3: var(--main-color-3);
+
+  --color-alt-color-1: var(--alt-color-1);
+  --color-alt-color-2: var(--alt-color-2);
+  --color-alt-color-3: var(--alt-color-3);
+  --color-alt-color-4: var(--alt-color-4);
+  --color-alt-color-5: var(--alt-color-5);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -44,6 +54,16 @@
 }
 
 :root {
+  --main-color-1: #655eab;
+  --main-color-2: #918ce6;
+  --main-color-3: #381750;
+
+  --alt-color-1: #c59776;
+  --alt-color-2: #e6bf98;
+  --alt-color-3: #fee0bc;
+  --alt-color-4: #fff6d9;
+  --alt-color-5: #fbf8f3;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
