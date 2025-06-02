@@ -4,7 +4,7 @@ import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 import Link from "next/link";
 
 const AboutUs = () => {
-  const programs = [
+  const apps = [
     {
       name: "Photoshop",
       icon: "/about-us/photoshop.svg",
@@ -126,7 +126,7 @@ const AboutUs = () => {
               </div>
 
               <ul>
-                {programs.map((program, i) => (
+                {apps.map((app, i) => (
                   <li
                     key={i}
                     className="absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom"
@@ -138,10 +138,10 @@ const AboutUs = () => {
                     >
                       <Image
                         className="size-8 m-auto"
-                        src={program.icon}
+                        src={app.icon}
                         width={32}
                         height={32}
-                        alt={program.name}
+                        alt={app.name}
                       />
                     </div>
                   </li>

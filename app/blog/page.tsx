@@ -1,5 +1,6 @@
-import Link from "next/link";
 import Image from "next/image";
+
+import TransitionLink from "@/components/TransitionLink";
 
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
@@ -33,8 +34,8 @@ export default function page() {
         aria-hidden="true"
         className="flex absolute -top-96 start-1/2 transform -translate-x-1/2 rtl:translate-x-1/2"
       >
-        <div className="bg-linear-to-r from-violet-300/50 to-purple-100 blur-3xl w-100 h-175 rotate-[-60deg] transform -translate-x-40 dark:from-violet-900/50 dark:to-purple-900"></div>
-        <div className="bg-linear-to-tl from-blue-50 via-blue-100 to-blue-50 blur-3xl w-[1440px] h-200 rounded-fulls origin-top-left -rotate-12 -translate-x-60 dark:from-indigo-900/70 dark:via-indigo-900/70 dark:to-blue-900/70"></div>
+        <div className="bg-linear-to-r from-violet-300/50 to-purple-100 blur-3xl w-100 h-175 rotate-[-60deg] transform -translate-x-40 dark:from-violet-900/50 dark:to-purple-900" />
+        <div className="bg-linear-to-tl from-blue-50 via-blue-100 to-blue-50 blur-3xl w-[1440px] h-200 rounded-fulls origin-top-left -rotate-12 -translate-x-60 dark:from-indigo-900/70 dark:via-indigo-900/70 dark:to-blue-900/70" />
       </div>
       {/* End Gradients */}
 
@@ -57,12 +58,12 @@ export default function page() {
       {/* Card Blog */}
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid group/grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogPosts.map((post, i) => (
             // Card
-            <Link
+            <TransitionLink
               key={i}
-              className="group hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10"
+              className="group/card hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:bg-white/5 dark:hover:bg-white/10 dark:focus:bg-white/10 group-hover/grid:opacity-50 hover:!opacity-100"
               href={post.link || "#"}
             >
               <div className="w-full aspect-16/10">
@@ -74,14 +75,14 @@ export default function page() {
                   alt="Blog Image"
                 />
               </div>
-              <h3 className="mt-5 text-xl text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+              <h3 className="mt-5 text-xl text-gray-800 dark:text-neutral-300 dark:hover:text-white transition-all duration-300 group-hover/card:dark:text-main-color-1">
                 {post.title}
               </h3>
-              <p className="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-gray-800 dark:text-neutral-200">
+              <span className="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-gray-800 dark:text-neutral-200 transition-all duration-300 group-hover/card:dark:text-main-color-1 group-hover/card:animate-pulse">
                 اقرأ المزيد
-                <GoChevronLeft className="shrink-0 size-4 transition ease-in-out group-hover:-translate-x-1 group-focus:-translate-x-1" />
-              </p>
-            </Link>
+                <GoChevronLeft className="shrink-0 size-4 transition ease-in-out group-hover/card:-translate-x-1 group-focus/card:-translate-x-1" />
+              </span>
+            </TransitionLink>
             // End Card
           ))}
         </div>

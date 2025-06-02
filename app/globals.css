@@ -142,3 +142,48 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Scrollbar Start */
+/* width */
+::-webkit-scrollbar {
+  @apply w-2 rounded-full;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-gradient-to-t from-zinc-900 to-zinc-800;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-t from-main-color-1/90 to-main-color-2 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-main-color-1/70 to-main-color-2/70;
+}
+/* Scrollbar End */
+
+::-moz-selection {
+  @apply text-zinc-100 bg-main-color-2;
+}
+
+::selection {
+  @apply text-zinc-100 bg-main-color-2;
+}
+
+::view-transition-group(root) {
+  @apply !z-auto;
+}
+
+::view-transition-image-pair(root) {
+  @apply isolate z-[1] will-change-[transform,opacity,scale];
+}
+
+::view-transition-old(root) {
+  @apply z-[1] !animate-none;
+}
+
+::view-transition-new(root) {
+  @apply z-[2] !animate-none;
+}

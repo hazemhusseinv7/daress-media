@@ -96,8 +96,14 @@ export const BentoGridItem = ({
 
           {button && (
             <>
-              <Button color="primary" variant="shadow" onPress={onOpen}>
-                {button} <GoChevronLeft />
+              <Button
+                color="primary"
+                variant="shadow"
+                onPress={onOpen}
+                className="group/button hover:bg-main-color-2 hover:text-white  "
+              >
+                {button}{" "}
+                <GoChevronLeft className="group-hover/button:-translate-x-2 transition-transform duration-300" />
               </Button>
               <Modal
                 backdrop="blur"
@@ -179,7 +185,7 @@ export const BentoGridItem = ({
                             />
                           </div>
                         ) : content === "voice over" ? (
-                          <div className="flex flex-col gap-8">
+                          <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
                             <audio controls className="w-full">
                               <source src={voiceOver1} type="audio/mpeg" />
                             </audio>

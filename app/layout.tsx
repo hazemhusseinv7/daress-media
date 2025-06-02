@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Providers } from "./providers";
+import { ViewTransitions } from "next-view-transitions";
 
 const notoKufiArabic = Noto_Kufi_Arabic({
   variable: "--font-noto-kufi-arabic",
@@ -23,16 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className="dark scroll-smooth">
-      <body
-        className={`${notoKufiArabic.variable} font-noto-kufi-arabic antialiased`}
-      >
-        <Providers>
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="ar" dir="rtl" className="dark scroll-smooth">
+        <body
+          className={`${notoKufiArabic.variable} font-noto-kufi-arabic antialiased`}
+        >
+          <Providers>
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

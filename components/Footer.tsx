@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import TransitionLink from "@/components/TransitionLink";
+
 import { SparklesCore } from "@/components/ui/sparkles";
 
 import {
@@ -89,7 +91,7 @@ const Footer = () => {
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
           <div className="col-span-full lg:col-span-1">
-            <Link
+            <TransitionLink
               className="flex-none text-xl font-semibold text-white focus:outline-hidden focus:opacity-80"
               href="/"
               aria-label="Logo"
@@ -98,7 +100,7 @@ const Footer = () => {
               <span className="font-medium text-black dark:text-white">
                 صناع المحتوى
               </span>
-            </Link>
+            </TransitionLink>
           </div>
           {/* End Col */}
           {footerLists.map((list, i) => (
@@ -108,12 +110,12 @@ const Footer = () => {
               <div className="mt-3 grid space-y-3">
                 {list.items.map((item, i) => (
                   <span key={i}>
-                    <Link
+                    <TransitionLink
                       className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
                       href={item.link || "#"}
                     >
                       {item.name}
-                    </Link>
+                    </TransitionLink>
                   </span>
                 ))}
               </div>
@@ -129,12 +131,12 @@ const Footer = () => {
               <FaCopyright />
               {new Date().getFullYear()}
               <span>
-                <Link
+                <TransitionLink
                   href="/"
                   className="hover:text-neutral-200 transition-colors duration-300"
                 >
                   صناع المحتوى
-                </Link>
+                </TransitionLink>
                 .
               </span>
               جميع الحقوق محفوظة.
