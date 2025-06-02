@@ -1,6 +1,54 @@
-import React from "react";
+"use client";
 
-export default function page() {
+import { FormEvent, useState } from "react";
+
+import Link from "next/link";
+
+import { AnimatePresence, motion } from "motion/react";
+
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+
+import {
+  FaXTwitter,
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+} from "react-icons/fa6";
+import { CircleArrowRight } from "lucide-react";
+
+const socialMedia = [
+  {
+    name: "Twitter",
+    icon: FaXTwitter,
+    link: process.env.NEXT_PUBLIC_TWITTER,
+  },
+  {
+    name: "Facebook",
+    icon: FaFacebook,
+    link: process.env.NEXT_PUBLIC_FACEBOOK,
+  },
+  {
+    name: "Instagram",
+    icon: FaInstagram,
+    link: process.env.NEXT_PUBLIC_INSTAGRAM,
+  },
+  {
+    name: "Whatsapp",
+    icon: FaWhatsapp,
+    link: process.env.NEXT_PUBLIC_WHATSAPP,
+  },
+];
+
+export default function Page() {
+  const [hovered, setHover] = useState<string>("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Form submitted");
+  };
+
   return (
     <main className="relative overflow-hidden bg-linear-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent">
       <div className="mt-32">
@@ -29,462 +77,104 @@ export default function page() {
                   </p>
                 </div>
                 {/* End Title */}
+
+                <div className="flex flex-wrap justify-start gap-4 mt-10">
+                  {socialMedia.map((item, i) => (
+                    <Link
+                      key={i}
+                      href={item.link || "#"}
+                      aria-label={item.name}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="min-w-[140px] flex bg-gradient-to-br from-gray-500 hover:from-gray-400 to-50% to-neutral-900 p-px rounded-md overflow-hidden"
+                      onMouseEnter={() => setHover(item.name)}
+                      onMouseLeave={() => setHover("")}
+                    >
+                      <div className="w-full flex justify-center items-center text-white bg-gradient-to-br from-neutral-900/60 from-35% to-white/5 py-1.5 px-2 md:py-2 md:px-3 rounded-[11px]">
+                        <AnimatePresence initial={false}>
+                          {hovered !== item.name && (
+                            <motion.div
+                              key={item.name}
+                              initial={{ x: 80, width: 0 }}
+                              animate={{ x: 0, width: 20 }}
+                              exit={{ x: 80, width: 0 }}
+                              transition={{ duration: 0.4 }}
+                              className="h-5 flex items-center"
+                            >
+                              <item.icon />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                        <p className="text-xs font-medium capitalize px-2">
+                          {item.name}
+                        </p>
+                        <AnimatePresence>
+                          {hovered === item.name && (
+                            <motion.div
+                              key="circle-arrow"
+                              initial={{ x: -80, width: 0 }}
+                              animate={{ x: 0, width: 20 }}
+                              exit={{ x: -80, width: 0 }}
+                              transition={{ duration: 0.4 }}
+                              className="h-4 flex items-center"
+                            >
+                              <CircleArrowRight className="size-4" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
               {/* End Col */}
 
-              <div>
-                {/* Form */}
-                <form>
-                  <div className="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto">
-                    {/* Card */}
-                    <div className="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
-                      <div>
-                        {/* Grid */}
-                        <div className="grid grid-cols-2 gap-4">
-                          {/* Input Group */}
-                          <div>
-                            {/* Floating Input */}
-                            <div className="relative">
-                              <input
-                                type="text"
-                                id="hs-hero-signup-form-floating-input-first-name"
-                                className="peer p-3 sm:p-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
-                      focus:pt-6
-                      focus:pb-2
-                      not-placeholder-shown:pt-6
-                      not-placeholder-shown:pb-2
-                      autofill:pt-6
-                      autofill:pb-2"
-                                placeholder="John"
-                              />
-                              <label
-                                htmlFor="hs-hero-signup-form-floating-input-first-name"
-                                className="absolute top-0 start-0 p-3 sm:p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
-                        peer-focus:scale-90
-                        peer-focus:translate-x-0.5
-                        peer-focus:-translate-y-1.5
-                        peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
-                        peer-not-placeholder-shown:scale-90
-                        peer-not-placeholder-shown:translate-x-0.5
-                        peer-not-placeholder-shown:-translate-y-1.5
-                        peer-not-placeholder-shown:text-gray-500 dark:peer-not-placeholder-shown:text-neutral-500 dark:text-neutral-500"
-                              >
-                                First name
-                              </label>
-                            </div>
-                            {/* End Floating Input */}
-                          </div>
-                          {/* End Input Group */}
+              <div className="mx-auto w-full max-w-lg rounded-none p-4 md:rounded-2xl md:p-8 bg-gradient-to-tr from-zinc-950/0 to-zinc-950 border border-zinc-900 shadow-2xl shadow-zinc-900/70">
+                <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
+                  تواصل معنا
+                </h2>
 
-                          {/* Input Group */}
-                          <div>
-                            {/* Floating Input */}
-                            <div className="relative">
-                              <input
-                                type="text"
-                                id="hs-hero-signup-form-floating-input-last-name"
-                                className="peer p-3 sm:p-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
-                      focus:pt-6
-                      focus:pb-2
-                      not-placeholder-shown:pt-6
-                      not-placeholder-shown:pb-2
-                      autofill:pt-6
-                      autofill:pb-2"
-                                placeholder="Doe"
-                              />
-                              <label
-                                htmlFor="hs-hero-signup-form-floating-input-last-name"
-                                className="absolute top-0 start-0 p-3 sm:p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
-                        peer-focus:scale-90
-                        peer-focus:translate-x-0.5
-                        peer-focus:-translate-y-1.5
-                        peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
-                        peer-not-placeholder-shown:scale-90
-                        peer-not-placeholder-shown:translate-x-0.5
-                        peer-not-placeholder-shown:-translate-y-1.5
-                        peer-not-placeholder-shown:text-gray-500 dark:peer-not-placeholder-shown:text-neutral-500 dark:text-neutral-500"
-                              >
-                                Last name
-                              </label>
-                            </div>
-                            {/* End Floating Input */}
-                          </div>
-                          {/* End Input Group */}
+                <form className="mt-8" onSubmit={handleSubmit}>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="firstname">الإسم</Label>
+                    <Input id="name" placeholder="الإسم" type="text" required />
+                  </LabelInputContainer>
 
-                          {/* Input Group */}
-                          <div>
-                            {/* Floating Input */}
-                            <div className="relative">
-                              <input
-                                type="email"
-                                id="hs-hero-signup-form-floating-input-email"
-                                className="peer p-3 sm:p-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
-                      focus:pt-6
-                      focus:pb-2
-                      not-placeholder-shown:pt-6
-                      not-placeholder-shown:pb-2
-                      autofill:pt-6
-                      autofill:pb-2"
-                                placeholder="you@email.com"
-                              />
-                              <label
-                                htmlFor="hs-hero-signup-form-floating-input-email"
-                                className="absolute top-0 start-0 p-3 sm:p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
-                        peer-focus:scale-90
-                        peer-focus:translate-x-0.5
-                        peer-focus:-translate-y-1.5
-                        peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
-                        peer-not-placeholder-shown:scale-90
-                        peer-not-placeholder-shown:translate-x-0.5
-                        peer-not-placeholder-shown:-translate-y-1.5
-                        peer-not-placeholder-shown:text-gray-500 dark:peer-not-placeholder-shown:text-neutral-500 dark:text-neutral-500"
-                              >
-                                Email
-                              </label>
-                            </div>
-                            {/* End Floating Input */}
-                          </div>
-                          {/* End Input Group */}
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="email">البريد الإلكترونى</Label>
+                    <Input
+                      id="email"
+                      placeholder="Email@email.com"
+                      type="email"
+                      required
+                    />
+                  </LabelInputContainer>
 
-                          {/* Input Group */}
-                          <div>
-                            {/* Floating Input */}
-                            <div className="relative">
-                              <input
-                                type="text"
-                                id="hs-hero-signup-form-floating-input-company-name"
-                                className="peer p-3 sm:p-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
-                      focus:pt-6
-                      focus:pb-2
-                      not-placeholder-shown:pt-6
-                      not-placeholder-shown:pb-2
-                      autofill:pt-6
-                      autofill:pb-2"
-                                placeholder="Preline"
-                              />
-                              <label
-                                htmlFor="hs-hero-signup-form-floating-input-company-name"
-                                className="absolute top-0 start-0 p-3 sm:p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
-                        peer-focus:scale-90
-                        peer-focus:translate-x-0.5
-                        peer-focus:-translate-y-1.5
-                        peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
-                        peer-not-placeholder-shown:scale-90
-                        peer-not-placeholder-shown:translate-x-0.5
-                        peer-not-placeholder-shown:-translate-y-1.5
-                        peer-not-placeholder-shown:text-gray-500 dark:peer-not-placeholder-shown:text-neutral-500 dark:text-neutral-500"
-                              >
-                                Company name
-                              </label>
-                            </div>
-                            {/* End Floating Input */}
-                          </div>
-                          {/* End Input Group */}
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="phone">الرقم</Label>
+                    <Input id="phone" placeholder="123456789" type="tel" />
+                  </LabelInputContainer>
 
-                          {/* Input Group */}
-                          <div className="relative col-span-full">
-                            {/* Floating Input */}
-                            <div className="relative">
-                              <input
-                                type="password"
-                                id="hs-hero-signup-form-floating-input-new-password"
-                                className="peer p-3 sm:p-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
-                      focus:pt-6
-                      focus:pb-2
-                      not-placeholder-shown:pt-6
-                      not-placeholder-shown:pb-2
-                      autofill:pt-6
-                      autofill:pb-2"
-                                placeholder="********"
-                              />
-                              <label
-                                htmlFor="hs-hero-signup-form-floating-input-new-password"
-                                className="absolute top-0 start-0 p-3 sm:p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
-                        peer-focus:scale-90
-                        peer-focus:translate-x-0.5
-                        peer-focus:-translate-y-1.5
-                        peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
-                        peer-not-placeholder-shown:scale-90
-                        peer-not-placeholder-shown:translate-x-0.5
-                        peer-not-placeholder-shown:-translate-y-1.5
-                        peer-not-placeholder-shown:text-gray-500 dark:peer-not-placeholder-shown:text-neutral-500 dark:text-neutral-500"
-                              >
-                                New password
-                              </label>
-                            </div>
-                            {/* End Floating Input */}
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="message">الرسالة</Label>
+                    <Input
+                      id="message"
+                      placeholder="الرسالة"
+                      type="text"
+                      as="textarea"
+                      required
+                    />
+                  </LabelInputContainer>
+                  <button
+                    className="group/btn relative block h-10 w-full rounded-md bg-zinc-900 hover:bg-zinc-800 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] transition-colors duration-200 cursor-pointer"
+                    type="submit"
+                  >
+                    إرسال
+                    <BottomGradient />
+                  </button>
 
-                            <div
-                              id="hs-strong-password-popover"
-                              className="hidden absolute z-10 w-full bg-gray-100 rounded-lg p-4 dark:bg-neutral-950"
-                            >
-                              <div
-                                id="hs-strong-password-in-popover"
-                                data-hs-strong-password='{
-                          "target": "#hs-hero-signup-form-floating-input-new-password",
-                          "hints": "#hs-strong-password-popover",
-                          "stripClasses": "hs-strong-password:opacity-100 hs-strong-password-accepted:bg-teal-500 h-2 flex-auto rounded-full bg-blue-500 opacity-50 mx-1",
-                          "mode": "popover"
-                        }'
-                                className="flex mt-2 -mx-1"
-                              ></div>
-
-                              <h4 className="mt-3 text-sm font-semibold text-gray-800 dark:text-white">
-                                Your password must contain:
-                              </h4>
-
-                              <ul className="space-y-1 text-sm text-gray-500 dark:text-neutral-500">
-                                <li
-                                  data-hs-strong-password-hints-rule-text="min-length"
-                                  className="hs-strong-password-active:text-teal-500 flex items-center gap-x-2"
-                                >
-                                  <span className="hidden" data-check>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                  </span>
-                                  <span data-uncheck>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <path d="M18 6 6 18" />
-                                      <path d="m6 6 12 12" />
-                                    </svg>
-                                  </span>
-                                  Minimum number of characters is 6.
-                                </li>
-                                <li
-                                  data-hs-strong-password-hints-rule-text="lowercase"
-                                  className="hs-strong-password-active:text-teal-500 flex items-center gap-x-2"
-                                >
-                                  <span className="hidden" data-check>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                  </span>
-                                  <span data-uncheck>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <path d="M18 6 6 18" />
-                                      <path d="m6 6 12 12" />
-                                    </svg>
-                                  </span>
-                                  Should contain lowercase.
-                                </li>
-                                <li
-                                  data-hs-strong-password-hints-rule-text="uppercase"
-                                  className="hs-strong-password-active:text-teal-500 flex items-center gap-x-2"
-                                >
-                                  <span className="hidden" data-check>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                  </span>
-                                  <span data-uncheck>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <path d="M18 6 6 18" />
-                                      <path d="m6 6 12 12" />
-                                    </svg>
-                                  </span>
-                                  Should contain uppercase.
-                                </li>
-                                <li
-                                  data-hs-strong-password-hints-rule-text="numbers"
-                                  className="hs-strong-password-active:text-teal-500 flex items-center gap-x-2"
-                                >
-                                  <span className="hidden" data-check>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                  </span>
-                                  <span data-uncheck>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <path d="M18 6 6 18" />
-                                      <path d="m6 6 12 12" />
-                                    </svg>
-                                  </span>
-                                  Should contain numbers.
-                                </li>
-                                <li
-                                  data-hs-strong-password-hints-rule-text="special-characters"
-                                  className="hs-strong-password-active:text-teal-500 flex items-center gap-x-2"
-                                >
-                                  <span className="hidden" data-check>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                  </span>
-                                  <span data-uncheck>
-                                    <svg
-                                      className="shrink-0 size-4"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    >
-                                      <path d="M18 6 6 18" />
-                                      <path d="m6 6 12 12" />
-                                    </svg>
-                                  </span>
-                                  Should contain special characters.
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          {/* End Input Group */}
-
-                          {/* Input Group */}
-                          <div className="col-span-full">
-                            {/* Floating Input */}
-                            <div className="relative">
-                              <input
-                                type="password"
-                                id="hs-hero-signup-form-floating-input-current-password"
-                                className="peer p-3 sm:p-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
-                      focus:pt-6
-                      focus:pb-2
-                      not-placeholder-shown:pt-6
-                      not-placeholder-shown:pb-2
-                      autofill:pt-6
-                      autofill:pb-2"
-                                placeholder="********"
-                              />
-                              <label
-                                htmlFor="hs-hero-signup-form-floating-input-current-password"
-                                className="absolute top-0 start-0 p-3 sm:p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
-                        peer-focus:scale-90
-                        peer-focus:translate-x-0.5
-                        peer-focus:-translate-y-1.5
-                        peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
-                        peer-not-placeholder-shown:scale-90
-                        peer-not-placeholder-shown:translate-x-0.5
-                        peer-not-placeholder-shown:-translate-y-1.5
-                        peer-not-placeholder-shown:text-gray-500 dark:peer-not-placeholder-shown:text-neutral-500 dark:text-neutral-500"
-                              >
-                                Current password
-                              </label>
-                            </div>
-                            {/* End Floating Input */}
-                          </div>
-                          {/* End Input Group */}
-                        </div>
-                        {/* End Grid */}
-
-                        <div className="mt-5">
-                          <button
-                            type="submit"
-                            className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                          >
-                            Get started
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    {/* End Card */}
-                  </div>
+                  <div className="mt-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
                 </form>
-                {/* End Form */}
               </div>
               {/* End Col */}
             </div>
@@ -496,3 +186,26 @@ export default function page() {
     </main>
   );
 }
+
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
+      <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
+    </>
+  );
+};
+
+const LabelInputContainer = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div className={cn("flex w-full flex-col space-y-2", className)}>
+      {children}
+    </div>
+  );
+};

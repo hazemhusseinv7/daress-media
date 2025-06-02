@@ -48,8 +48,8 @@ const AboutUs = () => {
           </h2>
 
           <div className="max-w-[23rem] mb-10 md:mb-14">
-            <div>
-              <span className="me-4">نكتب في فضاءات:</span>
+            <div className="flex lg:items-center max-lg:flex-col gap-2 lg:gap-4 mb-4">
+              <span>نكتب في فضاءات:</span>
               <ContainerTextFlip
                 words={[
                   "المعرفة العميقة",
@@ -65,7 +65,9 @@ const AboutUs = () => {
               </li>
               <li>
                 <strong className="text-xl">وننثر </strong>
-                <span className="text-zinc-300 font-light">الحرف بأسلوب شاعري</span>
+                <span className="text-zinc-300 font-light">
+                  الحرف بأسلوب شاعري
+                </span>
               </li>
               <li>
                 <strong className="text-xl">ونُخرج </strong>
@@ -93,7 +95,7 @@ const AboutUs = () => {
 
             <Link
               href="/"
-              className="flex lg:justify-end items-center gap-2 mt-4 lg:mt-[85px] lg:me-16"
+              className="flex lg:justify-end items-center gap-2 mt-4 lg:mt-12 lg:me-16"
             >
               <Image src="logo/logo.svg" width={50} height={50} alt="Logo" />
               <span className="font-medium text-black dark:text-white">
@@ -104,9 +106,9 @@ const AboutUs = () => {
         </div>
 
         <div className="xl:w-[38rem] mt-4">
-          <p className="ps-4 pe-8 font-light md:text-2xl mb-4 text-zinc-400 md:mb-16 lg:mb-32 lg:w-[27rem] lg:mx-auto">
-            نحن صُنّاع المحتوى، حين يُصبح الحرف نبضًا، والمعرفة لوحةً تنبض
-            بالحياة.
+          <p className="ps-4 pe-8 font-light md:text-2xl mb-4 text-zinc-400 md:mb-16 lg:mb-32 lg:w-[37rem] lg:mx-auto">
+            مركز بحثى لإعداد الدراسات المتخصصة، وتقديم الاستشارات العلمية،
+            وتحكيم الأبحاث، وصقل المهارات.
           </p>
           <div dir="ltr">
             <div className="relative left-1/2 flex w-[22rem] aspect-square border border-zinc-800/80 rounded-full -translate-x-1/2 scale-75 md:scale-100">
