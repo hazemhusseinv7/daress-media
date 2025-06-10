@@ -1,7 +1,8 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
-import Link from "next/link";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 const AboutUs = () => {
   const apps = [
@@ -40,8 +41,11 @@ const AboutUs = () => {
   ];
 
   return (
-    <section id="about-us" className="py-32">
-      <div className="lg:flex max-w-7xl mx-auto">
+    <section
+      id="about-us"
+      className="py-32 bg-linear-to-t from-slate-950/70 to-violet-950/10"
+    >
+      <div className="lg:flex max-w-7xl mx-auto relative z-10">
         <div className="ps-4 pe-8">
           <h2 className="text-white text-2xl md:text-5xl font-bold tracking-tight mb-4 md:mb-8">
             من نحن
@@ -114,14 +118,17 @@ const AboutUs = () => {
             <div className="relative left-1/2 flex w-[22rem] aspect-square border border-zinc-800/80 rounded-full -translate-x-1/2 scale-75 md:scale-100">
               <div className="flex w-60 aspect-square m-auto border border-zinc-800/80 rounded-full">
                 <div className="w-[6rem] aspect-square m-auto p-[0.2rem] bg-gradient-to-tr from-main-color-1 to-alt-color-1 rounded-full">
-                  <div className="flex justify-center items-center size-full bg-gradient-to-tr from-zinc-900 to-zinc-800 rounded-full">
+                  <Link
+                    href="/"
+                    className="flex justify-center items-center size-full bg-gradient-to-tr from-zinc-900 to-zinc-800 hover:from-zinc-800 hover:to-zinc-700 rounded-full relative z-10"
+                  >
                     <Image
                       src="logo/logo.svg"
                       width={50}
                       height={50}
                       alt="Logo"
                     />
-                  </div>
+                  </Link>
                 </div>
               </div>
 
@@ -133,11 +140,11 @@ const AboutUs = () => {
                     style={{ transform: `rotate(${(i + 1) * 45}deg)` }}
                   >
                     <div
-                      className="relative -top-[1.6rem] flex size-[3.2rem] bg-zinc-950 border border-zinc-800/80 rounded-xl"
+                      className="group/icon relative -top-[1.6rem] flex size-[3.2rem] bg-zinc-950 hover:bg-zinc-900 border border-zinc-800/80 hover:border-zinc-700/80 rounded-xl overflow-hidden transition-colors duration-300"
                       style={{ transform: `rotate(-${(i + 1) * 45}deg)` }}
                     >
                       <Image
-                        className="size-8 m-auto"
+                        className="size-8 m-auto group-hover/icon:scale-[190%] group-hover/icon:rotate-12 transition-transform duration-300"
                         src={app.icon}
                         width={32}
                         height={32}
@@ -169,6 +176,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+      <BackgroundBeams />
     </section>
   );
 };

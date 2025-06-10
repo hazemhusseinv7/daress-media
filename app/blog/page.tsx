@@ -28,7 +28,7 @@ export default function page() {
   ];
 
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-hidden bg-linear-to-t from-blue-700/10 to-blue-900/10 pb-80">
       {/* Gradients */}
       <div
         aria-hidden="true"
@@ -63,7 +63,7 @@ export default function page() {
             // Card
             <TransitionLink
               key={i}
-              className="group/card hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:bg-white/5 dark:hover:bg-white/10 dark:focus:bg-white/10 group-hover/grid:opacity-50 hover:!opacity-100"
+              className="group/card hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:bg-white/10 dark:hover:bg-white/15 dark:focus:bg-white/10 group-hover/grid:opacity-50 hover:!opacity-100"
               href={post.link || "#"}
             >
               <div className="w-full aspect-16/10">

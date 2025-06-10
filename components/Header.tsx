@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import TransitionLink from "@/components/TransitionLink";
+
 import {
   Navbar,
   NavBody,
@@ -31,7 +33,7 @@ const Header = () => {
           <NavbarLogo />
           <NavItems items={items} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary" href="/contact-us" as="a">
+            <NavbarButton variant="primary" href="/contact-us">
               تواصل معنا
             </NavbarButton>
           </div>
@@ -52,14 +54,14 @@ const Header = () => {
             onClose={() => setIsMobileMenuOpen(false)}
           >
             {items.map((item, idx) => (
-              <a
+              <TransitionLink
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="relative text-neutral-600 dark:text-neutral-300"
               >
                 <span className="block">{item.name}</span>
-              </a>
+              </TransitionLink>
             ))}
             <div className="flex w-full flex-col gap-4">
               <NavbarButton
@@ -67,7 +69,6 @@ const Header = () => {
                 variant="primary"
                 className="w-full"
                 href="/contact-us"
-                as="a"
               >
                 تواصل معنا
               </NavbarButton>

@@ -60,7 +60,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative mt-80 bg-gray-900 w-full dark:bg-black">
+    <footer className="relative w-full bg-linear-to-t from-violet-700/20 via-black to-black">
       <div className="absolute -top-[37px] md:-top-[72px] lg:-top-[128px] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
         <span className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20">
           صناع المحتوى

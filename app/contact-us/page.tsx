@@ -50,7 +50,7 @@ export default function Page() {
   };
 
   return (
-    <main className="relative overflow-hidden bg-linear-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent">
+    <main className="relative overflow-hidden bg-linear-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent pb-80">
       <div className="mt-32">
         {/* Hero */}
         <div>
