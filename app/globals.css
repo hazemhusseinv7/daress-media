@@ -52,7 +52,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-noto-kufi-arabic: var(--font-noto-kufi-arabic);
+  --font-tajawal: var(--font-tajawal);
 }
 
 :root {
@@ -172,18 +172,61 @@
   @apply text-zinc-100 bg-main-color-2;
 }
 
-::view-transition-group(root) {
-  @apply !z-auto;
-}
+/* Typography Start */
+.prose {
+  /* Basic text elements */
+  @apply text-neutral-200;
 
-::view-transition-image-pair(root) {
-  @apply isolate z-[1] will-change-[transform,opacity,scale];
-}
+  /* Headings */
+  h1 {
+    @apply text-white;
+  }
 
-::view-transition-old(root) {
-  @apply z-[1] !animate-none;
-}
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-neutral-200;
+  }
 
-::view-transition-new(root) {
-  @apply z-[2] !animate-none;
+  /* Lists */
+  ul,
+  ol,
+  li {
+    @apply text-neutral-200;
+  }
+
+  /* Text formatting */
+  strong,
+  em,
+  blockquote,
+  code {
+    @apply text-neutral-200;
+  }
+
+  /* Links */
+  a {
+    @apply text-neutral-300 hover:text-white transition-colors duration-300;
+  }
+
+  /* Tables */
+  table,
+  th,
+  td,
+  tr {
+    @apply text-neutral-200;
+  }
+
+  /* Code blocks */
+  pre,
+  code {
+    @apply bg-neutral-800 text-neutral-100;
+  }
+
+  /* Images */
+  img {
+    @apply rounded-lg;
+  }
 }
+/* Typography End */

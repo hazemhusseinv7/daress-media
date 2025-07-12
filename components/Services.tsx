@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import Image from "next/image";
 
 import { motion } from "motion/react";
@@ -9,14 +11,66 @@ import { PointerHighlight } from "@/components/ui/pointer-highlight";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 
-import { CgFileDocument } from "react-icons/cg";
-import { PiMicrophoneBold } from "react-icons/pi";
-import { GrDocumentVideo } from "react-icons/gr";
-import { MdOutlineVideoLibrary } from "react-icons/md";
+import { ServicesType } from "@/types/cms";
 
 import { cn } from "@/lib/utils";
 
+import { AiOutlineLoading } from "react-icons/ai";
+
 const Services = () => {
+  const [cards, setCards] = useState<ServicesType | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/services");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setCards(data.data);
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Unknown error";
+        console.error("Failed to fetch data:", message);
+        setError(message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section
+        id="services"
+        className="relative mx-4 my-32 flex justify-center items-center min-h-[200px]"
+      >
+        <AiOutlineLoading className="size-7 text-main-color-2 animate-spin" />
+      </section>
+    );
+  }
+
+  if (error || !cards?.Cards.length) return null;
+
+  function getYouTubeEmbedUrl(url: string) {
+    if (url.includes("/embed/")) return url;
+
+    if (url.includes("youtube.com/watch?v=")) {
+      return url.replace("youtube.com/watch?v=", "youtube.com/embed/");
+    }
+
+    if (url.includes("youtu.be/")) {
+      return url.replace("youtu.be/", "youtube.com/embed/");
+    }
+
+    return url;
+  }
+
   return (
     <section
       id="services"
@@ -44,19 +98,102 @@ const Services = () => {
 
       <div className="relative">
         <BentoGrid className="max-w-5xl mx-auto md:auto-rows-[20rem] px-4 relative z-10">
-          {items.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={cn("[&>p:text-lg]", item.className)}
-              icon={item.icon}
-              image={item.image}
-              button={item.button}
-              content={item.content}
-            />
-          ))}
+          {cards.Cards.map((card, i) => {
+            const hasMedia =
+              (card.Youtube_Videos && card.Youtube_Videos.length > 0) ||
+              (card.Audio_Files !== null && card.Audio_Files !== undefined);
+
+            const mediaContent = hasMedia ? (
+              <div className="flex flex-col gap-20">
+                {card.Youtube_Videos && card.Youtube_Videos.length > 0 && (
+                  <div className="flex flex-col gap-12 w-full max-w-2xl mx-auto">
+                    {card.Youtube_Videos.map((video, i) => (
+                      <div key={i} className="flex flex-col gap-4">
+                        <h3 className="font-medium text-xl">{video.Title}</h3>
+                        <iframe
+                          className="w-full aspect-video rounded-lg"
+                          src={getYouTubeEmbedUrl(video.URL)}
+                          title="YouTube video player"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {card.Audio_Files !== null &&
+                  card.Audio_Files !== undefined && (
+                    <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
+                      {card.Audio_Files.map((audio, i) => (
+                        <audio key={i} controls className="w-full">
+                          <source
+                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${audio.url}`}
+                            type="audio/mpeg"
+                          />
+                        </audio>
+                      ))}
+                    </div>
+                  )}
+              </div>
+            ) : null;
+
+            const hasTextFlip = card.Text_Flip && card.Text_Flip.length > 0;
+            const flipWords = card.Text_Flip?.map((item) => item.Title) || [];
+
+            return (
+              <BentoGridItem
+                key={i}
+                title={card.Title}
+                description={
+                  hasTextFlip ? (
+                    <div className="space-x-2 text-sm group-hover/bento:text-main-color-2 transition-colors duration-200">
+                      <span>{card.Title}</span>
+                      <ContainerTextFlip
+                        words={flipWords}
+                        className="pt-1 pb-2 font-light group-hover/bento:dark:text-main-color-2 transition-colors duration-200"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-sm group-hover/bento:text-main-color-2 transition-colors duration-200">
+                      {card.Description}
+                    </span>
+                  )
+                }
+                header={
+                  <div className="w-full h-40 bg-gradient-to-tr from-indigo-700/10 to-violet-700/10 rounded-lg pt-4 group-hover/bento:from-indigo-700/20 group-hover/bento:to-violet-700/20">
+                    <Image
+                      className="size-full object-contain"
+                      src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${card.Image.url}`}
+                      width={300}
+                      height={300}
+                      alt={card.Image.alternativeText || card.Title}
+                    />
+                  </div>
+                }
+                className={cn(
+                  "[&>p:text-lg]",
+                  i === 0 || i === cards.Cards.length - 1
+                    ? "md:col-span-2"
+                    : "md:col-span-1"
+                )}
+                icon={
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${card.Icon.url}`}
+                    width={16}
+                    height={16}
+                    alt={card.Icon.alternativeText || card.Title}
+                    className="size-4 text-neutral-500 group-hover/bento:text-main-color-2 transition-colors duration-200"
+                  />
+                }
+                image={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${card.Image.url}`}
+                button={hasMedia ? "التفاصيل" : undefined}
+                content={mediaContent}
+              />
+            );
+          })}
         </BentoGrid>
 
         {/* Gradients */}
@@ -72,126 +209,5 @@ const Services = () => {
     </section>
   );
 };
-
-const SkeletonOne = () => {
-  return (
-    <div className="w-full h-40 bg-gradient-to-tr from-indigo-700/10 to-violet-700/10 rounded-lg pt-4 group-hover/bento:from-indigo-700/20 group-hover/bento:to-violet-700/20">
-      <Image
-        className="size-full object-contain"
-        src="/services/service-1.svg"
-        width={300}
-        height={300}
-        alt="Service Image"
-      />
-    </div>
-  );
-};
-const SkeletonTwo = () => {
-  return (
-    <div className="w-full h-40 bg-gradient-to-tr from-indigo-700/10 to-violet-700/10 rounded-lg pt-4 group-hover/bento:from-indigo-700/20 group-hover/bento:to-violet-700/20">
-      <Image
-        className="size-full object-contain"
-        src="/services/service-2.svg"
-        width={300}
-        height={300}
-        alt="Service Image"
-      />
-    </div>
-  );
-};
-const SkeletonThree = () => {
-  return (
-    <div className="w-full h-40 bg-gradient-to-tr from-indigo-700/10 to-violet-700/10 rounded-lg pt-4 group-hover/bento:from-indigo-700/20 group-hover/bento:to-violet-700/20">
-      <Image
-        className="size-full object-contain"
-        src="/services/service-3.svg"
-        width={300}
-        height={300}
-        alt="Service Image"
-      />
-    </div>
-  );
-};
-const SkeletonFour = () => {
-  return (
-    <div className="w-full h-40 bg-gradient-to-tr from-indigo-700/10 to-violet-700/10 rounded-lg pt-4 group-hover/bento:from-indigo-700/20 group-hover/bento:to-violet-700/20">
-      <Image
-        className="size-full object-contain"
-        src="/services/service-4.svg"
-        width={300}
-        height={300}
-        alt="Service Image"
-      />
-    </div>
-  );
-};
-
-const items = [
-  {
-    title: "إعداد المحتوى",
-    description: (
-      <span className="text-sm group-hover/bento:text-main-color-2 transition-colors duration-200">
-        إعداد محتوى معرفي في اي مجال مختصر أو مطول
-      </span>
-    ),
-    header: <SkeletonOne />,
-    className: "md:col-span-2",
-    icon: (
-      <CgFileDocument className="size-4 text-neutral-500 group-hover/bento:text-main-color-2 transition-colors duration-200" />
-    ),
-    image: "/services/service-1.svg",
-    button: "التفاصيل",
-    content: "motion graphics",
-  },
-
-  {
-    title: "كتابة سيناريو",
-    description: (
-      <span className="text-sm group-hover/bento:text-main-color-2 transition-colors duration-200">
-        سيناريست لإخراج المحتوى
-      </span>
-    ),
-    header: <SkeletonTwo />,
-    className: "md:col-span-1",
-    icon: (
-      <GrDocumentVideo className="size-4 text-neutral-500 group-hover/bento:text-main-color-2 transition-colors duration-200" />
-    ),
-    image: "/services/service-2.svg",
-  },
-  {
-    title: "إخراج احترافي",
-    description: (
-      <div className="space-x-2 text-sm group-hover/bento:text-main-color-2 transition-colors duration-200">
-        <span>إخراج المحتوى</span>
-        <ContainerTextFlip
-          words={["ثابت ", "فيديو"]}
-          className="pt-1 pb-2 font-light group-hover/bento:dark:text-main-color-2 transition-colors duration-200"
-        />
-      </div>
-    ),
-    header: <SkeletonThree />,
-    className: "md:col-span-1",
-    icon: (
-      <MdOutlineVideoLibrary className="size-4 text-neutral-500 group-hover/bento:text-main-color-2 transition-colors duration-200" />
-    ),
-    image: "/services/service-3.svg",
-  },
-  {
-    title: "تعليق صوتي",
-    description: (
-      <span className="text-sm group-hover/bento:text-main-color-2 transition-colors duration-200">
-        تعليق صوتي للمحتوى المعرفي
-      </span>
-    ),
-    header: <SkeletonFour />,
-    className: "md:col-span-2",
-    icon: (
-      <PiMicrophoneBold className="size-4 text-neutral-500 group-hover/bento:text-main-color-2 transition-colors duration-200" />
-    ),
-    image: "/services/service-4.svg",
-    button: "التفاصيل",
-    content: "voice over",
-  },
-];
 
 export default Services;

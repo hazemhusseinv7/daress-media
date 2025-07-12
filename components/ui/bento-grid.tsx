@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { ReactNode } from "react";
+
 import {
   Modal,
   ModalContent,
@@ -9,17 +11,6 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
-
-import Video from "next-video";
-import aboutUs from "@/videos/about-us.mp4";
-import service1 from "@/videos/service-1.mp4";
-import service2 from "@/videos/service-2.mp4";
-import service3 from "@/videos/service-3.mp4";
-import service4 from "@/videos/service-4.mp4";
-
-const voiceOver1 = "/voice-over/voice-over-1.mp3";
-const voiceOver2 = "/voice-over/voice-over-2.mp3";
-const voiceOver3 = "/voice-over/voice-over-3.mp3";
 
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
@@ -32,7 +23,7 @@ export const BentoGrid = ({
   children,
 }: {
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }) => {
   return (
     <div
@@ -57,13 +48,13 @@ export const BentoGridItem = ({
   content,
 }: {
   className?: string;
-  title?: string | React.ReactNode;
-  description?: string | React.ReactNode;
-  header?: React.ReactNode;
-  icon?: React.ReactNode;
+  title?: string | ReactNode;
+  description?: string | ReactNode;
+  header?: ReactNode;
+  icon?: ReactNode;
   image: string;
   button?: string;
-  content?: string;
+  content?: ReactNode;
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -126,80 +117,7 @@ export const BentoGridItem = ({
                         <strong>{title}</strong>
                         <span className="font-light">{description}</span>
                       </ModalHeader>
-                      <ModalBody>
-                        {content === "motion graphics" ? (
-                          <div dir="ltr">
-                            <Video
-                              src={aboutUs}
-                              className="max-w-9/10 md:max-w-2/3 mx-auto mt-20"
-                              style={{
-                                "--media-primary-color": "var(--main-color-2)",
-                                "--media-secondary-color":
-                                  "var(--main-color-3)",
-                                "--media-accent-color": "var(--main-color-1)",
-                              }}
-                            />
-
-                            <Video
-                              src={service1}
-                              className="max-w-9/10 md:max-w-2/3 mx-auto mt-20"
-                              style={{
-                                "--media-primary-color": "var(--main-color-2)",
-                                "--media-secondary-color":
-                                  "var(--main-color-3)",
-                                "--media-accent-color": "var(--main-color-1)",
-                              }}
-                            />
-
-                            <Video
-                              src={service2}
-                              className="max-w-9/10 md:max-w-2/3 mx-auto mt-20"
-                              style={{
-                                "--media-primary-color": "var(--main-color-2)",
-                                "--media-secondary-color":
-                                  "var(--main-color-3)",
-                                "--media-accent-color": "var(--main-color-1)",
-                              }}
-                            />
-
-                            <Video
-                              src={service3}
-                              className="max-w-9/10 md:max-w-2/3 mx-auto mt-20"
-                              style={{
-                                "--media-primary-color": "var(--main-color-2)",
-                                "--media-secondary-color":
-                                  "var(--main-color-3)",
-                                "--media-accent-color": "var(--main-color-1)",
-                              }}
-                            />
-
-                            <Video
-                              src={service4}
-                              className="max-w-9/10 md:max-w-2/3 mx-auto mt-20"
-                              style={{
-                                "--media-primary-color": "var(--main-color-2)",
-                                "--media-secondary-color":
-                                  "var(--main-color-3)",
-                                "--media-accent-color": "var(--main-color-1)",
-                              }}
-                            />
-                          </div>
-                        ) : content === "voice over" ? (
-                          <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
-                            <audio controls className="w-full">
-                              <source src={voiceOver1} type="audio/mpeg" />
-                            </audio>
-                            <audio controls className="w-full">
-                              <source src={voiceOver2} type="audio/mpeg" />
-                            </audio>
-                            <audio controls className="w-full">
-                              <source src={voiceOver3} type="audio/mpeg" />
-                            </audio>
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </ModalBody>
+                      <ModalBody>{content}</ModalBody>
                       <ModalFooter>
                         <Button
                           color="danger"

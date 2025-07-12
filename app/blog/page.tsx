@@ -1,31 +1,22 @@
 import Image from "next/image";
-
-import TransitionLink from "@/components/TransitionLink";
+import Link from "next/link";
 
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
+import { fetchCMS } from "@/lib/cms";
+
+import { BlogType } from "@/types/cms";
+
 import { GoChevronLeft } from "react-icons/go";
 
-export default function page() {
-  const words = "المدونة";
+export default async function page() {
+  const response = await fetchCMS<{ data: BlogType[] }>(
+    `/blogs?populate=Category&populate=Image`
+  );
 
-  const blogPosts = [
-    {
-      title: "عنوان المقال",
-      image: "/logo/logo.svg",
-      link: "/blog/blog-1",
-    },
-    {
-      title: "عنوان المقال",
-      image: "/logo/logo.svg",
-      link: "/blog/blog-2",
-    },
-    {
-      title: "عنوان المقال",
-      image: "/logo/logo.svg",
-      link: "/blog/blog-2",
-    },
-  ];
+  const posts = response.data || [];
+
+  const words = "المدونة";
 
   return (
     <main className="relative overflow-hidden bg-linear-to-t from-blue-700/10 to-blue-900/10 pb-80">
@@ -59,30 +50,30 @@ export default function page() {
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         {/* Grid */}
         <div className="grid group/grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogPosts.map((post, i) => (
+          {posts.map((post, i) => (
             // Card
-            <TransitionLink
+            <Link
               key={i}
               className="group/card hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-xl p-5 transition dark:bg-white/10 dark:hover:bg-white/15 dark:focus:bg-white/10 group-hover/grid:opacity-50 hover:!opacity-100"
-              href={post.link || "#"}
+              href={`/blog/${post.Slug}`}
             >
               <div className="w-full aspect-16/10">
                 <Image
                   className="size-full object-cover rounded-xl"
-                  src={post.image}
+                  src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${post.Image.url}`}
                   width={400}
                   height={300}
-                  alt="Blog Image"
+                  alt={post.Image.alternativeText || "Blog Image"}
                 />
               </div>
               <h3 className="mt-5 text-xl text-gray-800 dark:text-neutral-300 dark:hover:text-white transition-all duration-300 group-hover/card:dark:text-main-color-1">
-                {post.title}
+                {post.Title}
               </h3>
               <span className="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-gray-800 dark:text-neutral-200 transition-all duration-300 group-hover/card:dark:text-main-color-1 group-hover/card:animate-pulse">
                 اقرأ المزيد
                 <GoChevronLeft className="shrink-0 size-4 transition ease-in-out group-hover/card:-translate-x-1 group-focus/card:-translate-x-1" />
               </span>
-            </TransitionLink>
+            </Link>
             // End Card
           ))}
         </div>

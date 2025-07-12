@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, ReactNode, SVGProps } from "react";
 
 import { motion } from "motion/react";
 
@@ -12,7 +12,7 @@ export function PointerHighlight({
   pointerClassName,
   containerClassName,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   rectangleClassName?: string;
   pointerClassName?: string;
   containerClassName?: string;
@@ -105,7 +105,7 @@ export function PointerHighlight({
   );
 }
 
-const Pointer = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
+const Pointer = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       stroke="currentColor"

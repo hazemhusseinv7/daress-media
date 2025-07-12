@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-
-import TransitionLink from "@/components/TransitionLink";
+import Link from "next/link";
 
 import { SparklesCore } from "@/components/ui/sparkles";
 
@@ -13,6 +11,7 @@ import {
   FaInstagram,
   FaWhatsapp,
   FaCopyright,
+  FaYoutube,
 } from "react-icons/fa6";
 
 const Footer = () => {
@@ -57,6 +56,11 @@ const Footer = () => {
       icon: FaWhatsapp,
       link: process.env.NEXT_PUBLIC_WHATSAPP,
     },
+    {
+      name: "Youtube",
+      icon: FaYoutube,
+      link: process.env.NEXT_PUBLIC_YOUTUBE,
+    },
   ];
 
   return (
@@ -83,7 +87,7 @@ const Footer = () => {
           />
 
           {/* Radial Gradient to prevent sharp edges */}
-          <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+          <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]" />
         </div>
       </div>
 
@@ -91,7 +95,7 @@ const Footer = () => {
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
           <div className="col-span-full lg:col-span-1">
-            <TransitionLink
+            <Link
               className="flex-none text-xl font-semibold text-white focus:outline-hidden focus:opacity-80"
               href="/"
               aria-label="Logo"
@@ -100,7 +104,7 @@ const Footer = () => {
               <span className="font-medium text-black dark:text-white">
                 صناع المحتوى
               </span>
-            </TransitionLink>
+            </Link>
           </div>
           {/* End Col */}
           {footerLists.map((list, i) => (
@@ -110,12 +114,12 @@ const Footer = () => {
               <div className="mt-3 grid space-y-3">
                 {list.items.map((item, i) => (
                   <span key={i}>
-                    <TransitionLink
+                    <Link
                       className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
                       href={item.link || "#"}
                     >
                       {item.name}
-                    </TransitionLink>
+                    </Link>
                   </span>
                 ))}
               </div>
@@ -127,20 +131,20 @@ const Footer = () => {
 
         <div className="mt-5 sm:mt-12 grid gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center">
           <div className="flex flex-wrap justify-between items-center gap-2">
-            <p className="flex items-center gap-1 text-sm text-gray-400 dark:text-neutral-400">
+            <span className="flex items-center gap-1 text-sm text-gray-400 dark:text-neutral-400">
               <FaCopyright />
               {new Date().getFullYear()}
               <span>
-                <TransitionLink
+                <Link
                   href="/"
                   className="hover:text-neutral-200 transition-colors duration-300"
                 >
                   صناع المحتوى
-                </TransitionLink>
+                </Link>
                 .
               </span>
               جميع الحقوق محفوظة.
-            </p>
+            </span>
           </div>
           {/* End Col */}
 

@@ -1,5 +1,14 @@
-import { HeroUIProvider } from "@heroui/react";
+"use client";
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <HeroUIProvider>{children}</HeroUIProvider>;
+import { ReactNode } from "react";
+
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
+
+export function Providers({ children }: { children: ReactNode }) {
+  return (
+    <HeroUIProvider>
+      <ToastProvider />
+      {children}
+    </HeroUIProvider>
+  );
 }

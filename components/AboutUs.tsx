@@ -4,41 +4,16 @@ import Image from "next/image";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 
-const AboutUs = () => {
-  const apps = [
-    {
-      name: "Photoshop",
-      icon: "/about-us/photoshop.svg",
-    },
-    {
-      name: "Illustrator",
-      icon: "/about-us/illustrator.svg",
-    },
-    {
-      name: "Indesign",
-      icon: "/about-us/indesign.svg",
-    },
-    {
-      name: "After Effects",
-      icon: "/about-us/after-effects.svg",
-    },
-    {
-      name: "Premiere-pro",
-      icon: "/about-us/premiere-pro.svg",
-    },
-    {
-      name: "Animate",
-      icon: "/about-us/animate.svg",
-    },
-    {
-      name: "Audition",
-      icon: "/about-us/audition.svg",
-    },
-    {
-      name: "Figma",
-      icon: "/about-us/figma.svg",
-    },
-  ];
+import { fetchCMS } from "@/lib/cms";
+
+import { AboutUsType } from "@/types/cms";
+
+const AboutUs = async () => {
+  const response = await fetchCMS<{ data: AboutUsType }>(
+    "/about-us?populate[List][populate]=Text_Flip&populate=Apps"
+  );
+
+  const data = response.data;
 
   return (
     <section
@@ -52,49 +27,31 @@ const AboutUs = () => {
           </h2>
 
           <div className="max-w-[23rem] mb-10 md:mb-14">
-            <div className="flex lg:items-center max-lg:flex-col gap-2 lg:gap-4 mb-4">
-              <span>نكتب في فضاءات:</span>
-              <ContainerTextFlip
-                words={[
-                  "المعرفة العميقة",
-                  "الأدب الراقي",
-                  "التاريخ المتوهّج بأسراره",
-                ]}
-              />
-            </div>
             <ul className="space-y-2">
-              <li>
-                <strong className="text-xl">نخطّ </strong>
-                <span className="text-zinc-300 font-light">بأقلامٍ محترفة</span>
-              </li>
-              <li>
-                <strong className="text-xl">وننثر </strong>
-                <span className="text-zinc-300 font-light">
-                  الحرف بأسلوب شاعري
-                </span>
-              </li>
-              <li>
-                <strong className="text-xl">ونُخرج </strong>
-                <span className="text-zinc-300 font-light">
-                  الفكرة في أبهى حُللها الفنية
-                </span>
-              </li>
-              <li>
-                <strong className="text-xl">معنا </strong>
-                <span className="text-zinc-300 font-light">
-                  تتحول المعرفة إلى فنٍ يُدهشك، وتغدو الفكرة مشهدًا ساحرًا
-                </span>
-              </li>
-              <li>
-                <strong className="text-xl">كن جميلاً </strong>
-                <span className="text-zinc-300 font-light">
-                  في فكرتك، في أسلوبك، في رسالتك…
-                </span>
-              </li>
-              <li>
-                <strong className="text-xl">ترى الوجود جميلاً </strong>
-                <span className="text-zinc-300 font-light">من حولك</span>
-              </li>
+              {data.List?.map((item, i) => {
+                if (item.Text_Flip && item.Text_Flip.length > 0) {
+                  const flipWords =
+                    item.Text_Flip?.map((item) => item.Title) || [];
+
+                  return (
+                    <li
+                      key={i}
+                      className="flex lg:items-center max-lg:flex-col gap-2 lg:gap-4 mb-4"
+                    >
+                      <span>{item.Title}</span>
+                      <ContainerTextFlip words={flipWords} />
+                    </li>
+                  );
+                } else
+                  return (
+                    <li key={i} className="space-x-2">
+                      <strong className="text-xl">{item.Title}</strong>{" "}
+                      <span className="text-zinc-300 font-light">
+                        {item.Description}
+                      </span>
+                    </li>
+                  );
+              })}
             </ul>
 
             <Link
@@ -111,9 +68,9 @@ const AboutUs = () => {
 
         <div className="xl:w-[38rem] mt-4">
           <p className="ps-4 pe-8 font-light md:text-2xl mb-4 text-zinc-400 md:mb-16 lg:mb-32 lg:w-[37rem] lg:mx-auto">
-            مركز بحثى لإعداد الدراسات المتخصصة، وتقديم الاستشارات العلمية،
-            وتحكيم الأبحاث، وصقل المهارات.
+            {data.Description}
           </p>
+
           <div dir="ltr">
             <div className="relative left-1/2 flex w-[22rem] aspect-square border border-zinc-800/80 rounded-full -translate-x-1/2 scale-75 md:scale-100">
               <div className="flex w-60 aspect-square m-auto border border-zinc-800/80 rounded-full">
@@ -133,7 +90,7 @@ const AboutUs = () => {
               </div>
 
               <ul>
-                {apps.map((app, i) => (
+                {data.Apps.map((app, i) => (
                   <li
                     key={i}
                     className="absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom"
@@ -145,10 +102,10 @@ const AboutUs = () => {
                     >
                       <Image
                         className="size-8 m-auto group-hover/icon:scale-[190%] group-hover/icon:rotate-12 transition-transform duration-300"
-                        src={app.icon}
+                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${app.url}`}
                         width={32}
                         height={32}
-                        alt={app.name}
+                        alt={app.alternativeText || "App"}
                       />
                     </div>
                   </li>

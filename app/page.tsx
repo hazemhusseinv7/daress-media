@@ -1,5 +1,3 @@
-"use client";
-
 import Hero from "@/components/Hero";
 import AboutUs from "@/components/AboutUs";
 import Services from "@/components/Services";
@@ -14,6 +12,7 @@ export default function Home() {
       <TracingBeam className="relative overflow-hidden">
         <AboutUs />
       </TracingBeam>
+
       <Services />
     </>
   );

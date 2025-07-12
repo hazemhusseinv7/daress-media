@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 import { motion, useTransform, useScroll, useSpring } from "motion/react";
 
@@ -10,7 +10,7 @@ export const TracingBeam = ({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) => {
   const ref = useRef<HTMLDivElement>(null);

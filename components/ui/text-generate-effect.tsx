@@ -63,7 +63,7 @@ export const TextGenerateEffect = ({
     <div className={cn("font-bold", className)}>
       <div className="mt-4">
         {as === "h1" ? (
-          <h1 className="relative z-10 text-2xl md:text-5xl leading-[1.2] bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-bold">
+          <h1 className="relative z-10 text-2xl md:text-5xl leading-[1.5] bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-bold">
             {renderWords()}
           </h1>
         ) : (
