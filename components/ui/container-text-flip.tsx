@@ -74,24 +74,21 @@ export function ContainerTextFlip({
         layoutId={`word-div-${words[currentWordIndex]}-${id}`}
       >
         <motion.div className="inline-block">
-          {words[currentWordIndex].split("").map((letter, index) => (
-            <motion.span
-              key={index}
-              initial={{
-                opacity: 0,
-                filter: "blur(10px)",
-              }}
-              animate={{
-                opacity: 1,
-                filter: "blur(0px)",
-              }}
-              transition={{
-                delay: index * 0.02,
-              }}
-            >
-              {letter}
-            </motion.span>
-          ))}
+          <motion.span
+            initial={{
+              opacity: 0,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{
+              duration: animationDuration / 1000,
+            }}
+          >
+            {words[currentWordIndex]}
+          </motion.span>
         </motion.div>
       </motion.div>
     </motion.div>

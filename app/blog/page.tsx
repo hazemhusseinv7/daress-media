@@ -19,14 +19,14 @@ export default async function page() {
   const words = "المدونة";
 
   return (
-    <main className="relative overflow-hidden bg-linear-to-t from-blue-700/10 to-blue-900/10 pb-80">
+    <main className="relative overflow-hidden bg-gradient-to-t from-blue-700/10 to-blue-900/10 pb-80">
       {/* Gradients */}
       <div
         aria-hidden="true"
         className="flex absolute -top-96 start-1/2 transform -translate-x-1/2 rtl:translate-x-1/2"
       >
-        <div className="bg-linear-to-r from-violet-300/50 to-purple-100 blur-3xl w-100 h-175 rotate-[-60deg] transform -translate-x-40 dark:from-violet-900/50 dark:to-purple-900" />
-        <div className="bg-linear-to-tl from-blue-50 via-blue-100 to-blue-50 blur-3xl w-[1440px] h-200 rounded-fulls origin-top-left -rotate-12 -translate-x-60 dark:from-indigo-900/70 dark:via-indigo-900/70 dark:to-blue-900/70" />
+        <div className="bg-gradient-to-r from-violet-300/50 to-purple-100 blur-3xl w-100 h-175 rotate-[-60deg] transform -translate-x-40 dark:from-violet-900/50 dark:to-purple-900" />
+        <div className="bg-gradient-to-tl from-blue-50 via-blue-100 to-blue-50 blur-3xl w-[1440px] h-200 rounded-fulls origin-top-left -rotate-12 -translate-x-60 dark:from-indigo-900/70 dark:via-indigo-900/70 dark:to-blue-900/70" />
       </div>
       {/* End Gradients */}
 

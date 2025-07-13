@@ -198,7 +198,7 @@ export default function Page() {
   };
 
   return (
-    <main className="relative overflow-hidden bg-linear-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent pb-80">
+    <main className="relative overflow-hidden bg-gradient-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent pb-80">
       <div className="mt-32">
         {/* Hero */}
         <div>
@@ -215,7 +215,7 @@ export default function Page() {
               ) : (
                 <div>
                   {data?.Highlight && (
-                    <p className="inline-block text-sm font-medium bg-clip-text bg-linear-to-l from-blue-600 to-violet-500 text-transparent dark:from-blue-400 dark:to-violet-400">
+                    <p className="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent dark:from-blue-400 dark:to-violet-400">
                       {data.Highlight}
                     </p>
                   )}

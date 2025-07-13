@@ -12,7 +12,6 @@ import {
 } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import {
   motion,
@@ -20,6 +19,8 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
+
+import TransitionLink from "@/components/TransitionLink";
 
 import { cn } from "@/lib/utils";
 
@@ -137,7 +138,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       )}
     >
       {items.map((item, idx) => (
-        <Link
+        <TransitionLink
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
           className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
@@ -151,7 +152,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             />
           )}
           <span className="relative z-20">{item.name}</span>
-        </Link>
+        </TransitionLink>
       ))}
     </motion.div>
   );
@@ -165,7 +166,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
-        width: visible ? "90%" : "100%",
+        width: visible ? "80%" : "100%",
         paddingRight: visible ? "12px" : "0px",
         paddingLeft: visible ? "12px" : "0px",
         borderRadius: visible ? "4px" : "2rem",
@@ -243,15 +244,15 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <Link
+    <TransitionLink
       href="/"
       className="relative z-20 ml-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-      <Image src="/logo/logo.svg" alt="Logo" width={30} height={30} />
+      <Image src="/logo/logo-alt.svg" alt="Logo" width={30} height={30} />
       <span className="font-medium text-black dark:text-white">
         صناع المحتوى
       </span>
-    </Link>
+    </TransitionLink>
   );
 };
 
@@ -282,13 +283,13 @@ export const NavbarButton = ({
   };
 
   return (
-    <Link
+    <TransitionLink
       href={href || "#"}
       className={cn(baseStyles, variantStyles[variant], className)}
       onClick={onClick}
       {...props}
     >
       {children}
-    </Link>
+    </TransitionLink>
   );
 };

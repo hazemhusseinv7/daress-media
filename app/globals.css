@@ -101,7 +101,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(12.9% 0.042 264.695);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -170,6 +170,22 @@
 
 ::selection {
   @apply text-zinc-100 bg-main-color-2;
+}
+
+::view-transition-group(root) {
+  @apply !z-auto;
+}
+
+::view-transition-image-pair(root) {
+  @apply isolate z-[1] will-change-[transform,opacity,scale];
+}
+
+::view-transition-old(root) {
+  @apply z-[1] !animate-none;
+}
+
+::view-transition-new(root) {
+  @apply z-[2] !animate-none;
 }
 
 /* Typography Start */

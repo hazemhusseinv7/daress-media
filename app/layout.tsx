@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Providers } from "./providers";
+import { ViewTransitions } from "next-view-transitions";
 
 const tajawal = Tajawal({
   variable: "--font-tajawal",
@@ -26,14 +27,16 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className="dark scroll-smooth">
-      <body className={`${tajawal.variable} font-tajawal antialiased`}>
-        <Providers>
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="ar" dir="rtl" className="dark scroll-smooth bg-slate-900">
+        <body className={`${tajawal.variable} font-tajawal antialiased`}>
+          <Providers>
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

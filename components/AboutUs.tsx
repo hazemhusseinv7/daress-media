@@ -1,5 +1,6 @@
-import Link from "next/link";
 import Image from "next/image";
+
+import TransitionLink from "@/components/TransitionLink";
 
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 import { BackgroundBeams } from "@/components/ui/background-beams";
@@ -16,10 +17,7 @@ const AboutUs = async () => {
   const data = response.data;
 
   return (
-    <section
-      id="about-us"
-      className="py-32 bg-linear-to-t from-slate-950/70 to-violet-950/10"
-    >
+    <section id="about-us" className="py-32 bg-slate-700/10">
       <div className="lg:flex max-w-7xl mx-auto relative z-10">
         <div className="ps-4 pe-8">
           <h2 className="text-white text-2xl md:text-5xl font-bold tracking-tight mb-4 md:mb-8">
@@ -54,7 +52,7 @@ const AboutUs = async () => {
               })}
             </ul>
 
-            <Link
+            <TransitionLink
               href="/"
               className="flex lg:justify-end items-center gap-2 mt-4 lg:mt-12 lg:me-16"
             >
@@ -62,7 +60,7 @@ const AboutUs = async () => {
               <span className="font-medium text-black dark:text-white">
                 صناع المحتوى
               </span>
-            </Link>
+            </TransitionLink>
           </div>
         </div>
 
@@ -75,7 +73,7 @@ const AboutUs = async () => {
             <div className="relative left-1/2 flex w-[22rem] aspect-square border border-zinc-800/80 rounded-full -translate-x-1/2 scale-75 md:scale-100">
               <div className="flex w-60 aspect-square m-auto border border-zinc-800/80 rounded-full">
                 <div className="w-[6rem] aspect-square m-auto p-[0.2rem] bg-gradient-to-tr from-main-color-1 to-alt-color-1 rounded-full">
-                  <Link
+                  <TransitionLink
                     href="/"
                     className="flex justify-center items-center size-full bg-gradient-to-tr from-zinc-900 to-zinc-800 hover:from-zinc-800 hover:to-zinc-700 rounded-full relative z-10"
                   >
@@ -85,7 +83,7 @@ const AboutUs = async () => {
                       height={50}
                       alt="Logo"
                     />
-                  </Link>
+                  </TransitionLink>
                 </div>
               </div>
 
