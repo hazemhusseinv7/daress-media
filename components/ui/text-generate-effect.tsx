@@ -4,8 +4,6 @@ import { useEffect } from "react";
 
 import { motion, stagger, useAnimate } from "motion/react";
 
-import { cn } from "@/lib/utils";
-
 export const TextGenerateEffect = ({
   words,
   className,
@@ -37,15 +35,22 @@ export const TextGenerateEffect = ({
 
   const renderWords = () => {
     return (
-      <motion.div ref={scope}>
+      <motion.span
+        ref={scope}
+        className={
+          as === "p" ? "max-md:flex justify-start gap-1 flex-wrap" : undefined
+        }
+      >
         {wordsArray.map((word, idx) => {
           return (
             <motion.span
               key={word + idx}
               className={
                 as === "h1"
-                  ? "relative z-10 text-2xl md:text-5xl leading-[1.2] bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-bold opacity-0"
-                  : "dark:text-white text-black opacity-0"
+                  ? "relative z-10 py-2 text-2xl md:text-5xl lg:text-6xl leading-[1.2] lg:leading-[1.5] bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-400 text-center font-bold opacity-0"
+                  : as === "h2"
+                  ? "relative z-10 py-2 text-2xl md:text-4xl lg:text-5xl leading-[1.2] lg:leading-[1.3] bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-400 text-center font-bold opacity-0"
+                  : "relative z-10 font-medium md:font-bold md:text-3xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-400 text-center opacity-0"
               }
               style={{
                 filter: filter ? "blur(10px)" : "none",
@@ -55,21 +60,19 @@ export const TextGenerateEffect = ({
             </motion.span>
           );
         })}
-      </motion.div>
+      </motion.span>
     );
   };
 
   return (
-    <div className={cn("font-bold", className)}>
-      <div className="mt-4">
+    <div className={className}>
+      <div className="mt-4 text-center">
         {as === "h1" ? (
-          <h1 className="relative z-10 text-2xl md:text-5xl leading-[1.5] bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-bold">
-            {renderWords()}
-          </h1>
+          <h1>{renderWords()}</h1>
+        ) : as === "h2" ? (
+          <h2>{renderWords()}</h2>
         ) : (
-          <div className="dark:text-white text-black text-2xl leading-snug tracking-wide">
-            {renderWords()}
-          </div>
+          <p>{renderWords()}</p>
         )}
       </div>
     </div>

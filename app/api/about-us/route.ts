@@ -4,9 +4,7 @@ import { fetchCMS } from "@/lib/cms";
 
 export async function GET() {
   try {
-    const data = await fetchCMS(
-      `/about-us?populate[List][populate]=Text_Flip&populate=Apps`
-    );
+    const data = await fetchCMS(`/about-us?populate=Image`);
 
     return NextResponse.json(data);
   } catch (error) {

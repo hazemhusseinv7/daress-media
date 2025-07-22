@@ -24,14 +24,11 @@ export interface ServicesType {
 // AboutUs
 export interface AboutUsType {
   id: number;
-  Description: string;
-  List?: {
-    id: number;
-    Title: string;
-    Description?: string;
-    Text_Flip?: { id: number; Title: string }[];
-  }[];
-  Apps: { id: number; url: string; alternativeText?: string }[];
+  Description?: string;
+  Image?: {
+    url: string;
+    alternativeText?: string;
+  };
 }
 
 // ContactUs

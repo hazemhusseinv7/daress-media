@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Tajawal } from "next/font/google";
+import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 
 import { ReactNode } from "react";
@@ -9,10 +9,11 @@ import Footer from "@/components/Footer";
 import { Providers } from "./providers";
 import { ViewTransitions } from "next-view-transitions";
 
-const tajawal = Tajawal({
-  variable: "--font-tajawal",
-  weight: ["200", "300", "400", "500", "700", "800"],
+const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
+  variable: "--font-ibm-plex-sans-arabic",
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
   subsets: ["arabic", "latin"],
+  style: "normal",
 });
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="ar" dir="rtl" className="dark scroll-smooth bg-slate-900">
-        <body className={`${tajawal.variable} font-tajawal antialiased`}>
+        <body className={`${ibmPlexSansArabic.variable} font-ibm-plex-sans-arabic antialiased`}>
           <Providers>
             <Header />
             {children}
