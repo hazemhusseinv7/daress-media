@@ -25,10 +25,20 @@ export interface ServicesType {
 export interface AboutUsType {
   id: number;
   Description?: string;
-  Image?: {
+  Image: {
     url: string;
     alternativeText?: string;
   };
+  List?: {
+    id: number;
+    Title: string;
+    Description?: string;
+    Text_Flip?: { id: number; Title: string }[];
+    Icon?: {
+      url: string;
+      alternativeText?: string;
+    };
+  }[];
 }
 
 // ContactUs

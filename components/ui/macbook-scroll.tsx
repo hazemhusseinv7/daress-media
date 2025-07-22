@@ -37,7 +37,7 @@ export const MacbookScroll = ({
   title,
   badge,
 }: {
-  src?: string;
+  src: string;
   alt?: string;
   showGradient?: boolean;
   title?: string | React.ReactNode;
@@ -137,7 +137,7 @@ export const Lid = ({
   scaleY: MotionValue<number>;
   rotate: MotionValue<number>;
   translate: MotionValue<number>;
-  src?: string;
+  src: string;
   alt?: string;
 }) => {
   return (
@@ -172,10 +172,11 @@ export const Lid = ({
       >
         <div className="absolute inset-0 rounded-lg bg-[#272729]" />
         <Image
-          src={src || "/logo/logo.svg"}
+          src={src}
           alt={alt || "Image"}
           width={512}
           height={384}
+          quality={100}
           className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
         />
       </motion.div>
