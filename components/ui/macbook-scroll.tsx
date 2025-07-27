@@ -43,13 +43,13 @@ export const MacbookScroll = ({
   title?: string | React.ReactNode;
   badge?: React.ReactNode;
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"],
+    offset: [`start ${isMobile ? "start" : "30%"}`, "end start"],
   });
-
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (window && window.innerWidth < 768) {
@@ -173,11 +173,11 @@ export const Lid = ({
         <div className="absolute inset-0 rounded-lg bg-[#272729]" />
         <Image
           src={src}
+          width={800}
+          height={600}
           alt={alt || "Image"}
-          width={512}
-          height={384}
-          quality={100}
-          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
+          unoptimized={true}
+          className="absolute inset-0 size-full rounded-lg object-cover object-left-top"
         />
       </motion.div>
     </div>

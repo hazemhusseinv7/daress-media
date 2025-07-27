@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 import { MacbookScroll } from "@/components/ui/macbook-scroll";
@@ -17,18 +19,18 @@ const AboutUs = async () => {
 
   return (
     <section id="about-us" className="py-20 bg-slate-700/10">
-      <div className="flex flex-col gap-10 mb-20">
+      <div className="flex flex-col gap-10 px-10   mb-20">
         <TextGenerateEffect words={words} as="h2" />
 
         {data.Description && (
           <TextGenerateEffect
             words={data.Description}
-            className="max-w-64 md:max-w-2xl mx-auto"
+            className="max-w-100 md:max-w-2xl mx-auto"
             as="p"
           />
         )}
 
-        <ul className="w-full max-w-64 md:max-w-xl mx-auto space-y-3 md:space-y-5">
+        <ul className="w-full max-w-100 md:max-w-xl mx-auto space-y-3 md:space-y-5">
           {data.List?.map((item, i) => {
             if (item.Text_Flip && item.Text_Flip.length > 0) {
               const flipWords = item.Text_Flip?.map((item) => item.Title) || [];

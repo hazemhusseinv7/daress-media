@@ -117,6 +117,7 @@ const Skeleton = () => {
             height={16}
             alt="Animate"
             className="size-4"
+            priority
           />
         </Container>
         <Container className="size-12 circle-2">
@@ -126,6 +127,7 @@ const Skeleton = () => {
             height={32}
             alt="Premiere Pro"
             className="size-6"
+            priority
           />
         </Container>
         <Container className="circle-3">
@@ -135,6 +137,7 @@ const Skeleton = () => {
             height={24}
             alt="Photoshop"
             className="size-8"
+            priority
           />
         </Container>
         <Container className="size-12 circle-4">
@@ -144,6 +147,7 @@ const Skeleton = () => {
             height={32}
             alt="After Effects"
             className="size-6"
+            priority
           />
         </Container>
         <Container className="size-8 circle-5">
@@ -153,6 +157,7 @@ const Skeleton = () => {
             height={16}
             alt="Audition"
             className="size-4"
+            priority
           />
         </Container>
       </div>
